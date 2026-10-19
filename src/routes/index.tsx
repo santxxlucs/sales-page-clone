@@ -11,7 +11,6 @@ import {
   ShieldCheck,
   HelpCircle,
   ArrowRight,
-  Gift,
   Clock,
   Sparkles,
 } from "lucide-react";
@@ -142,6 +141,7 @@ const bonuses = [
   {
     tag: "Presente especial",
     t: "Cronograma de Aprovação 60 Dias",
+    image: "/bonus/cronograma.jpg",
     paragraphs: [
       "Uma planilha guiada que organiza sua rotina diária de estudo dos mapas mentais de Odontologia.",
       "Saiba quais disciplinas revisar a cada dia, distribua os conteúdos ao longo das semanas e acompanhe seu progresso sem precisar perder tempo montando um planejamento do zero.",
@@ -150,6 +150,7 @@ const bonuses = [
   {
     tag: "Muito exclusivo",
     t: "Mural de Mnemônicos Odontológicos",
+    image: "/bonus/mnemonicos.jpg",
     paragraphs: [
       "Um pôster estratégico em PDF com siglas, associações visuais e frases curtas para facilitar a memorização de conteúdos que costumam exigir atenção aos detalhes.",
       "Revise classificações odontológicas, anatomia dental, nervos cranianos, índices de saúde bucal e outros conceitos importantes de maneira rápida e visual.",
@@ -158,6 +159,7 @@ const bonuses = [
   {
     tag: "Teste de retenção",
     t: "Simulado de Questões Gabaritadas",
+    image: "/bonus/simulado.jpg",
     paragraphs: [
       "100 questões de Odontologia, com gabarito comentado e organizadas por assuntos relacionados aos mapas mentais.",
       "Pratique os conhecimentos revisados, familiarize-se com o estilo das questões de concurso e identifique os conteúdos que precisam de mais atenção antes da próxima prova.",
@@ -166,6 +168,7 @@ const bonuses = [
   {
     tag: "Guia prático",
     t: "Guia de Farmacologia e Anestesia Odontológica",
+    image: "/bonus/farmacologia.jpg",
     paragraphs: [
       "Organize os principais conceitos de farmacologia aplicada à Odontologia com explicações visuais sobre anestésicos locais, cálculos de doses, indicações, contraindicações e cuidados farmacológicos.",
       "Um material complementar para reforçar os fundamentos teóricos e revisar temas que costumam gerar dúvidas durante a graduação e a preparação para concursos.",
@@ -664,8 +667,15 @@ function Index() {
                 <span className="absolute -top-px right-4 rounded-b-lg bg-orange px-3 py-1 text-[10px] font-extrabold uppercase text-primary-foreground">
                   {b.tag}
                 </span>
-                <div className="flex h-20 items-center justify-center rounded-xl border bg-muted">
-                  <Gift className="h-8 w-8 text-cta" />
+                <div className="flex justify-center rounded-xl border bg-muted/40 px-3 py-4">
+                  <img
+                    src={b.image}
+                    alt={`Apresentação do bônus ${b.t}`}
+                    width={896}
+                    height={1200}
+                    loading="lazy"
+                    className="h-52 w-auto max-w-full rounded-lg object-contain sm:h-56"
+                  />
                 </div>
                 <h3 className="mt-4 text-lg font-extrabold">{b.t}</h3>
                 <div className="mb-5">
