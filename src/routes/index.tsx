@@ -326,9 +326,11 @@ function TrustLabels({ complete = false }: { complete?: boolean }) {
   );
 }
 
-// Add the basic checkout and the dedicated R$ 17 offer checkout when supplied.
-// The special offer must not use the regular R$ 27 checkout.
-const checkoutUrls = { basic: "", special: "" };
+const checkoutUrls = {
+  basic: "https://pay.cakto.com.br/aq3wzps_1220564",
+  special: "https://pay.cakto.com.br/sruahpn",
+  complete: "https://pay.cakto.com.br/5wta82c",
+};
 
 function BasicPlanOffer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -739,7 +741,7 @@ function Index() {
               COMBO COMPLETO
             </span>
             <a
-              href="#"
+              href={checkoutUrls.complete}
               className="mt-6 block rounded-xl bg-cta px-4 py-4 text-center font-extrabold uppercase text-cta-foreground shadow-cta"
             >
               QUERO O COMBO COMPLETO
