@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
 import {
   Check,
   X,
@@ -325,6 +326,138 @@ function TrustLabels({ complete = false }: { complete?: boolean }) {
   );
 }
 
+// Add the basic checkout and the dedicated R$ 17 offer checkout when supplied.
+// The special offer must not use the regular R$ 27 checkout.
+const checkoutUrls = { basic: "", special: "" };
+
+function BasicPlanOffer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selection, setSelection] = useState<"basic" | "special" | null>(null);
+
+  function choosePlan(plan: "basic" | "special") {
+    const url = checkoutUrls[plan];
+    if (url) {
+      window.location.assign(url);
+      return;
+    }
+    setSelection(plan);
+    setIsOpen(false);
+  }
+
+  return (
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
+        <button
+          type="button"
+          onClick={() => setSelection(null)}
+          className="mt-4 block w-full rounded-xl bg-navy px-4 py-3 text-center text-sm font-extrabold uppercase text-navy-foreground transition-colors hover:bg-navy-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cta"
+        >
+          QUERO SÓ OS MAPAS
+        </button>
+      </Dialog.Trigger>
+      {selection && (
+        <p
+          role="status"
+          className="mt-4 rounded-xl border bg-muted p-4 text-sm text-muted-foreground"
+        >
+          Você selecionou{" "}
+          {selection === "special"
+            ? "o Combo Odontologia de Elite por R$ 17,00"
+            : "os 200 mapas de Odontologia por R$ 10,00"}
+          . A finalização da compra estará disponível em breve.
+        </p>
+      )}
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-navy/75 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in-0 motion-reduce:animate-none" />
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border-2 border-cta bg-card text-foreground shadow-2xl data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none">
+          <div className="relative bg-navy-gradient px-5 pb-5 pt-6 text-center text-navy-foreground sm:px-8">
+            <Dialog.Close asChild>
+              <button
+                type="button"
+                aria-label="Fechar oferta"
+                className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-navy-soft text-navy-foreground transition-colors hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </Dialog.Close>
+            <span className="mx-7 inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-gold sm:text-xs">
+              <Sparkles className="h-3 w-3 shrink-0" /> Oportunidade exclusiva
+            </span>
+            <Dialog.Title className="mt-3 text-xl font-black leading-tight sm:text-2xl">
+              Leve o Combo Odontologia de Elite por apenas{" "}
+              <span className="whitespace-nowrap text-gold">R$ 17,00!</span>
+            </Dialog.Title>
+            <Dialog.Description className="mt-2 text-xs leading-relaxed text-navy-foreground/80 sm:text-sm">
+              De <span className="line-through">R$ 27</span> por <strong>R$ 17</strong>: apenas R$ 7
+              a mais que o plano básico para levar os mapas e os 4 bônus.
+            </Dialog.Description>
+          </div>
+          <div className="space-y-4 p-4 sm:p-5">
+            <div className="rounded-xl border bg-muted/60 p-4">
+              <h3 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide">
+                <Sparkles className="h-4 w-4 shrink-0 text-cta" />
+                Tudo o que você desbloqueia no combo:
+              </h3>
+              <ul className="mt-3 grid gap-x-4 gap-y-2 text-xs leading-relaxed min-[460px]:grid-cols-2">
+                {[
+                  "Todos os 200 Mapas de Odontologia em PDF",
+                  "Cronograma de Aprovação 60 Dias",
+                  "Mural de Mnemônicos Odontológicos",
+                  "100 Questões Gabaritadas",
+                  "Guia de Farmacologia e Anestesia Odontológica",
+                  "Acesso Vitalício + Atualizações",
+                ].map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-cta" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-cta/40 bg-cta/10 p-4">
+              <div>
+                <p className="text-xs text-muted-foreground line-through">De R$ 27,00</p>
+                <span className="mt-1 inline-block rounded bg-destructive/10 px-2 py-1 text-[10px] font-extrabold uppercase text-destructive">
+                  R$ 10 de desconto
+                </span>
+              </div>
+              <div className="shrink-0 text-right text-cta">
+                <p className="whitespace-nowrap text-3xl font-black sm:text-4xl">R$ 17,00</p>
+                <p className="text-[10px] font-bold uppercase">Pagamento único</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => choosePlan("special")}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-cta px-4 py-4 text-sm font-extrabold uppercase text-cta-foreground shadow-cta transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
+            >
+              <Sparkles className="h-4 w-4 shrink-0" />
+              <span>
+                SIM! QUERO O COMBO POR <span className="whitespace-nowrap">R$ 17</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => choosePlan("basic")}
+              className="w-full rounded-lg px-3 py-2 text-xs font-semibold leading-relaxed text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-cta"
+            >
+              Prefiro só os 200 mapas por R$ 10,00, sem os 4 bônus →
+            </button>
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 border-t pt-3 text-[9px] font-bold uppercase text-muted-foreground sm:text-[10px]">
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="h-3 w-3 text-cta" />
+                Compra segura
+              </span>
+              <span>⚡ Envio já</span>
+              <span>🛡️ 7 dias de garantia</span>
+            </div>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
 function Index() {
   const [open, setOpen] = useState<number | null>(null);
   return (
@@ -571,13 +704,7 @@ function Index() {
                 PAGAMENTO ÚNICO
               </span>
             </div>
-            {/* Replace the original placeholder href when the payment URL is supplied. */}
-            <a
-              href="#"
-              className="mt-4 block rounded-xl bg-navy px-4 py-3 text-center text-sm font-extrabold uppercase text-navy-foreground"
-            >
-              QUERO SÓ OS MAPAS
-            </a>
+            <BasicPlanOffer />
             <TrustLabels />
           </div>
           <div className="relative rounded-2xl border-2 border-cta bg-card p-6 sm:p-8">
