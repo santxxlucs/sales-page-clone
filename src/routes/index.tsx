@@ -6,7 +6,6 @@ import {
   X,
   Plus,
   Minus,
-  Eye,
   Users,
   ShieldCheck,
   HelpCircle,
@@ -257,7 +256,6 @@ const faqs = [
 
 // Empty galleries show no images, quotes or counters until assets are provided.
 type GalleryImage = { src: string; alt: string };
-const sampleImages: GalleryImage[] = [];
 const testimonialImages: GalleryImage[] = [
   {
     src: "/depoimentos/camila.jpg",
@@ -506,23 +504,21 @@ function Index() {
           essenciais, reforçar seu aprendizado e consultar informações de forma prática durante sua
           preparação.
         </p>
+        <div className="mx-auto mt-8 w-full max-w-lg overflow-hidden rounded-2xl border shadow-card">
+          <img
+            src="/mockup-200-mapas-odontologia.png"
+            alt="Mockup dos 200 Mapas Mentais de Odontologia em PDF, com livro, tablet e celular"
+            width={1254}
+            height={1254}
+            fetchPriority="high"
+            className="block h-auto w-full"
+          />
+        </div>
         <CTA className="mt-8">QUERO MEUS MAPAS MENTAIS AGORA</CTA>
         <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
           <Check className="h-4 w-4 shrink-0 text-cta" />
           Acesso imediato ao material completo em formato PDF.
         </p>
-      </section>
-
-      <section className="bg-navy-gradient px-4 py-20 text-center text-navy-foreground">
-        <Pill tone="dark">
-          <Eye className="h-4 w-4" />
-          Amostra Real do Material
-        </Pill>
-        <h2 className="mt-4 text-3xl font-black md:text-4xl">Navegue por Dentro do Material</h2>
-        <MaterialGallery
-          images={sampleImages}
-          emptyText="As amostras dos mapas mentais de Odontologia estarão disponíveis em breve."
-        />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 text-center">
