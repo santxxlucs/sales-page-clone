@@ -328,8 +328,8 @@ function TrustLabels({ complete = false }: { complete?: boolean }) {
 
 const checkoutUrls = {
   basic: "https://pay.cakto.com.br/aq3wzps_1220564",
-  special: "https://pay.cakto.com.br/sruahpn",
-  complete: "https://pay.cakto.com.br/5wta82c",
+  special: "https://pay.cakto.com.br/b6oh44n_1220627",
+  complete: "https://pay.cakto.com.br/jugv22d_1220635",
 };
 
 function BasicPlanOffer() {
