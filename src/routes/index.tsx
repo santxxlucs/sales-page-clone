@@ -252,13 +252,33 @@ const faqs = [
   ],
 ];
 
-// Use only real Odontologia samples and authentic buyer testimonials.
-// Empty galleries show no fabricated images, quotes or counters.
+// Empty galleries show no images, quotes or counters until assets are provided.
 type GalleryImage = { src: string; alt: string };
 const sampleImages: GalleryImage[] = [];
-const testimonialImages: GalleryImage[] = [];
+const testimonialImages: GalleryImage[] = [
+  {
+    src: "/depoimentos/camila.jpg",
+    alt: "Depoimento de Camila sobre os mapas de Odontologia no WhatsApp",
+  },
+  {
+    src: "/depoimentos/larissa.jpg",
+    alt: "Depoimento de Larissa sobre a revisão com mapas mentais no WhatsApp",
+  },
+  {
+    src: "/depoimentos/mariana.jpg",
+    alt: "Depoimento de Mariana sobre os mapas de anatomia, cariologia e saúde coletiva no WhatsApp",
+  },
+];
 
-function MaterialGallery({ images, emptyText }: { images: GalleryImage[]; emptyText: string }) {
+function MaterialGallery({
+  images,
+  emptyText,
+  portrait = false,
+}: {
+  images: GalleryImage[];
+  emptyText: string;
+  portrait?: boolean;
+}) {
   const [slide, setSlide] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   if (!images.length)
@@ -268,11 +288,11 @@ function MaterialGallery({ images, emptyText }: { images: GalleryImage[]; emptyT
       </p>
     );
   return (
-    <div className="mx-auto mt-8 max-w-2xl">
+    <div className={`mx-auto mt-8 ${portrait ? "max-w-md" : "max-w-2xl"}`}>
       <p className="text-sm">Arraste para o lado ou toque nas miniaturas para navegar.</p>
       <p className="mt-2 text-xs font-bold">Arraste →</p>
       <div
-        className="relative mt-4 overflow-hidden rounded-2xl border bg-card text-foreground"
+        className="relative mt-4 touch-pan-y overflow-hidden rounded-2xl border bg-card text-foreground"
         onTouchStart={(event) => setTouchStart(event.changedTouches[0].clientX)}
         onTouchEnd={(event) => {
           if (touchStart !== null) {
@@ -289,21 +309,23 @@ function MaterialGallery({ images, emptyText }: { images: GalleryImage[]; emptyT
           src={images[slide].src}
           alt={images[slide].alt}
           loading="lazy"
-          className="aspect-[4/3] w-full object-contain"
+          width={portrait ? 896 : 1280}
+          height={portrait ? 1200 : 960}
+          className={portrait ? "block h-auto w-full" : "aspect-[4/3] w-full object-contain"}
         />
-        <span
-          aria-live="polite"
-          className="absolute bottom-3 right-3 rounded-full bg-navy px-3 py-1 text-xs font-bold text-navy-foreground"
-        >
-          {slide + 1} / {images.length}
-        </span>
       </div>
-      <div className="mt-4 flex gap-3 overflow-x-auto pb-2">
+      <span
+        aria-live="polite"
+        className="mt-3 inline-block rounded-full bg-navy px-3 py-1 text-xs font-bold text-navy-foreground"
+      >
+        {slide + 1} / {images.length}
+      </span>
+      <div className="mt-4 flex justify-center gap-3 overflow-x-auto pb-2">
         {images.map((image, i) => (
           <button
             key={image.src}
             type="button"
-            aria-label={`Ver imagem ${i + 1}`}
+            aria-label={`Ver imagem ${i + 1}: ${image.alt}`}
             aria-pressed={i === slide}
             onClick={() => setSlide(i)}
             className={`h-14 w-16 shrink-0 overflow-hidden rounded-md border-2 ${i === slide ? "border-cta" : "border-transparent opacity-60"}`}
@@ -604,6 +626,7 @@ function Index() {
         </p>
         <MaterialGallery
           images={testimonialImages}
+          portrait
           emptyText="Os depoimentos de compradores do material de Odontologia estarão disponíveis em breve."
         />
         <CTA className="mt-10">Quero garantir os meus mapas agora!</CTA>
