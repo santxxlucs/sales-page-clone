@@ -129,7 +129,7 @@ fbq('track', 'PageView');`,
         <script
           id="utmify-pixel"
           dangerouslySetInnerHTML={{
-            __html: `window.pixelId = "6ad6c179cd75579a9f06fc0a";
+            __html: `window.pixelId = "6ad785c7e4ce5593ae4e31eb";
 (function () {
   if (document.getElementById("utmify-pixel-loader")) return;
   var script = document.createElement("script");
