@@ -6,6 +6,7 @@ import {
   X,
   Plus,
   Minus,
+  Eye,
   Users,
   ShieldCheck,
   HelpCircle,
@@ -519,6 +520,18 @@ function Index() {
           <Check className="h-4 w-4 shrink-0 text-cta" />
           Acesso imediato ao material completo em formato PDF.
         </p>
+      </section>
+
+      <section className="bg-navy-gradient px-4 py-20 text-center text-navy-foreground">
+        <Pill tone="dark">
+          <Eye className="h-4 w-4" />
+          Amostra Real do Material
+        </Pill>
+        <h2 className="mt-4 text-3xl font-black md:text-4xl">Navegue por Dentro do Material</h2>
+        <MaterialGallery
+          images={[]}
+          emptyText="As amostras dos mapas mentais de Odontologia estarão disponíveis em breve."
+        />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 text-center">
