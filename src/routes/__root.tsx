@@ -85,7 +85,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap",
+      },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -100,8 +103,55 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
+        <script
+          id="utmify-utms"
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          async
+          defer
+          data-utmify-prevent-xcod-sck=""
+          data-utmify-prevent-subids=""
+        />
+        <script
+          id="meta-pixel"
+          dangerouslySetInnerHTML={{
+            __html: `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1593744198652486');
+fbq('track', 'PageView');`,
+          }}
+        />
+        <script
+          id="utmify-pixel"
+          dangerouslySetInnerHTML={{
+            __html: `window.pixelId = "6ad6c179cd75579a9f06fc0a";
+(function () {
+  if (document.getElementById("utmify-pixel-loader")) return;
+  var script = document.createElement("script");
+  script.id = "utmify-pixel-loader";
+  script.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+})();`,
+          }}
+        />
       </head>
       <body>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1593744198652486&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
