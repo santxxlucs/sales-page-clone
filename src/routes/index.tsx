@@ -257,18 +257,51 @@ const faqs = [
 
 // Empty galleries show no images, quotes or counters until assets are provided.
 type GalleryImage = { src: string; alt: string };
+const sampleImages: GalleryImage[] = [
+  { src: "/amostras/radiografia-panoramica.jpg", alt: "Mapa mental de radiografia panorâmica" },
+  {
+    src: "/amostras/radiografias-periapicais-interproximais.jpg",
+    alt: "Mapa mental de radiografias periapicais e interproximais",
+  },
+  {
+    src: "/amostras/principios-radiologia.jpg",
+    alt: "Mapa mental dos princípios da radiologia odontológica",
+  },
+  {
+    src: "/amostras/exames-complementares.jpg",
+    alt: "Mapa mental de exames complementares em Odontologia",
+  },
+  {
+    src: "/amostras/prevencao-doencas-bucais.jpg",
+    alt: "Mapa mental de prevenção das doenças bucais",
+  },
+  { src: "/amostras/oclusao-dentaria.jpg", alt: "Mapa mental dos fundamentos da oclusão dentária" },
+  {
+    src: "/amostras/desmineralizacao-remineralizacao.jpg",
+    alt: "Mapa mental de desmineralização e remineralização",
+  },
+  { src: "/amostras/diagnostico-carie.jpg", alt: "Mapa mental de diagnóstico clínico da cárie" },
+];
 const testimonialImages: GalleryImage[] = [
   {
-    src: "/depoimentos/camila.jpg",
+    src: "/depoimentos/larissa-20261021.png",
+    alt: "Depoimento de Larissa sobre os mapas de Odontologia no WhatsApp",
+  },
+  {
+    src: "/depoimentos/marcos-20261021.png",
+    alt: "Depoimento de Marcos sobre os mapas de Odontologia no WhatsApp",
+  },
+  {
+    src: "/depoimentos/juliana-20261021.png",
+    alt: "Depoimento de Juliana sobre os mapas de Odontologia no WhatsApp",
+  },
+  {
+    src: "/depoimentos/camila-20261021.png",
     alt: "Depoimento de Camila sobre os mapas de Odontologia no WhatsApp",
   },
   {
-    src: "/depoimentos/larissa.jpg",
-    alt: "Depoimento de Larissa sobre a revisão com mapas mentais no WhatsApp",
-  },
-  {
-    src: "/depoimentos/mariana.jpg",
-    alt: "Depoimento de Mariana sobre os mapas de anatomia, cariologia e saúde coletiva no WhatsApp",
+    src: "/depoimentos/renata-20261021.png",
+    alt: "Depoimento de Renata sobre os mapas de Odontologia no WhatsApp",
   },
 ];
 
@@ -311,9 +344,9 @@ function MaterialGallery({
           src={images[slide].src}
           alt={images[slide].alt}
           loading="lazy"
-          width={portrait ? 896 : 1280}
-          height={portrait ? 1200 : 960}
-          className={portrait ? "block h-auto w-full" : "aspect-[4/3] w-full object-contain"}
+          width={portrait ? 941 : 1376}
+          height={portrait ? 1672 : 768}
+          className="block h-auto w-full"
         />
       </div>
       <span
@@ -322,7 +355,7 @@ function MaterialGallery({
       >
         {slide + 1} / {images.length}
       </span>
-      <div className="mt-4 flex justify-center gap-3 overflow-x-auto pb-2">
+      <div className="mt-4 flex justify-start gap-3 overflow-x-auto pb-2 sm:justify-center">
         {images.map((image, i) => (
           <button
             key={image.src}
@@ -332,7 +365,7 @@ function MaterialGallery({
             onClick={() => setSlide(i)}
             className={`h-14 w-16 shrink-0 overflow-hidden rounded-md border-2 ${i === slide ? "border-cta" : "border-transparent opacity-60"}`}
           >
-            <img src={image.src} alt="" className="h-full w-full object-cover" />
+            <img src={image.src} alt="" loading="lazy" className="h-full w-full object-cover" />
           </button>
         ))}
       </div>
@@ -529,7 +562,7 @@ function Index() {
         </Pill>
         <h2 className="mt-4 text-3xl font-black md:text-4xl">Navegue por Dentro do Material</h2>
         <MaterialGallery
-          images={[]}
+          images={sampleImages}
           emptyText="As amostras dos mapas mentais de Odontologia estarão disponíveis em breve."
         />
       </section>
